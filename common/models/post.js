@@ -1,13 +1,15 @@
 'use strict';
-
+var fs = require('fs');
 module.exports = function(Post) {
   
     // Make sure emailVerified is not set by creation
     Post.beforeRemote('create', function(ctx, post, next) {
         var body = ctx.req.body;
-        console.log("image name ",decodeImg(body.type)) ;
+        body.datepublication = Date.now();
+        body.category = "todo";
+        //console.log("image name ",decodeImg(body.type)) ;
           //body.emailVerified = false;
-        body.type = decodeImg(body.type);
+       // body.type = decodeImg(body.type);
         next();
       });
 
@@ -41,6 +43,19 @@ module.exports = function(Post) {
         var data = img.replace(/^data:image\/\w+;base64,/, "");
         
         var buf = new Buffer(data, 'base64');
+
+        var path = 'http://localhost/img/';
+        
+        
+
+        
+        
+
+        
+        //res.send(imageName);
+
+
+        
 
         return imageName;
       }

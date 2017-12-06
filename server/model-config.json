@@ -41,5 +41,9 @@
     "dataSource": "mongoDB",
     "public": false,
     "strict": true
+  },
+  "attachment": {
+    "dataSource": "storage",
+    "public": true
   }
 }

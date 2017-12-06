@@ -27,5 +27,12 @@
       }
     ],
     "connector": "mail"
+  },
+  "storage": {
+    "name": "storage",
+    "connector": "loopback-component-storage",
+    "provider": "filesystem",
+    "root": "./files",
+    "maxFileSize": "10000000"
   }
 }
