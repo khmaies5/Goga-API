@@ -1,0 +1,38 @@
+{
+  "mongoDB": {
+    "host": "ds042687.mlab.com",
+    "port": 42687,
+    "url": "***REMOVED***",
+    "database": "goga",
+    "password": "***REMOVED***",
+    "name": "mongoDB",
+    "user": "gogaApp",
+    "connector": "mongodb"
+  },
+  "EmailDataSource": {
+    "name": "EmailDataSource",
+    "transports": [
+      {
+        "type": "smtp",
+        "host": "smtp.gmail.com",
+        "secure": true,
+        "port": 465,
+        "tls": {
+          "rejectUnauthorized": false
+        },
+        "auth": {
+          "user": "***REMOVED***",
+          "pass": "***REMOVED***"
+        }
+      }
+    ],
+    "connector": "mail"
+  },
+  "storage": {
+    "name": "storage",
+    "connector": "loopback-component-storage",
+    "provider": "filesystem",
+    "root": "./files",
+    "maxFileSize": "10000000"
+  }
+}
