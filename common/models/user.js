@@ -19,7 +19,9 @@ User.afterRemote('create', function(context, user, next) {
       User.deleteById(user.id);
       return next(err);
     }
+
   });
+    next();
 });
 
 

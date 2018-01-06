@@ -23,7 +23,11 @@
       "type": "string",
       "required": true,
       "default": "profile.png"
-    }
+    },
+    "rating": {
+      "type": "array",
+      "required": false
+        }
   },
   "validations": [],
   "relations": {
