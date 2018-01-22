@@ -27,7 +27,7 @@
     "rating": {
       "type": "array",
       "required": false
-        }
+    }
   },
   "validations": [],
   "relations": {

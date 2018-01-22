@@ -45,5 +45,9 @@
   "attachment": {
     "dataSource": "storage",
     "public": true
+  },
+  "subscribtion": {
+    "dataSource": "mongoDB",
+    "public": true
   }
 }

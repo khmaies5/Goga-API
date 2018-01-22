@@ -3,6 +3,10 @@ var express = require('express');
 var path = require('path');
 var loopback = require('loopback');
 var boot = require('loopback-boot');
+//exports.apnsTokenKeyPath = './server/private/notification/apns.p8';
+//exports.apnsTokenKeyId = 'xxxxxxxx';
+//exports.apnsTokenTeamId = 'xxxxxxxx';
+//exports.apnsBundleId = 'esprit.goga.Goga1';
 
 var app = module.exports = loopback();
 var path = require('path');

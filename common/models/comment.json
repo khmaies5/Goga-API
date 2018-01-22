@@ -9,6 +9,14 @@
     "text": {
       "type": "string",
       "required": true
+    },
+    "profilepicture": {
+      "type": "string",
+      "required": true
+    },
+    "username": {
+      "type": "string",
+      "required": true
     }
   },
   "validations": [],

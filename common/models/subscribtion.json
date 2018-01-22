@@ -1,0 +1,23 @@
+{
+  "name": "subscribtion",
+  "plural": "subscribtions",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "subscribee": {
+      "type": "string",
+      "required": true
+    },
+    "subsribed": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
