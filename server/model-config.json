@@ -16,6 +16,10 @@
   "Email": {
     "dataSource": "EmailDataSource"
   },
+  "User": {
+    "dataSource": "mongoDB",
+    "public": false
+  },
   "user": {
     "dataSource": "mongoDB",
     "public": true
@@ -34,14 +38,12 @@
   },
   "AccessToken": {
     "dataSource": "mongoDB",
-    "public": false,
-    "strict": true
+     "public":false
   },
   "ACL": {
     "dataSource": "mongoDB",
-    "public": false,
-    "strict": true
-  },
+    "public": false
+    },
   "attachment": {
     "dataSource": "storage",
     "public": true
@@ -49,5 +51,13 @@
   "subscribtion": {
     "dataSource": "mongoDB",
     "public": true
+  },
+  "RoleMapping": {
+    "dataSource": "mongoDB",
+    "public": false
+  },
+  "Role": {
+    "dataSource": "mongoDB",
+    "public": false
   }
 }

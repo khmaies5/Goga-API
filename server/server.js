@@ -3,9 +3,7 @@ var express = require('express');
 var path = require('path');
 var loopback = require('loopback');
 var boot = require('loopback-boot');
-
 var app = module.exports = loopback();
-
 app.use(express.static(path.resolve('./public')));
 
 app.start = function() {

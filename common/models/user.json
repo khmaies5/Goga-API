@@ -19,6 +19,11 @@
   },
   "validations": [],
   "relations": {
+    "accessTokens": {
+      "type": "hasMany",
+      "model": "AccessToken",
+      "foreignKey": "userId"
+    },
     "comments": {
       "type": "hasMany",
       "model": "comment",
@@ -36,6 +41,7 @@
     }
   },
   "acls": [
+    
     {
       "accessType": "EXECUTE",
       "principalType": "ROLE",
@@ -51,9 +57,16 @@
       "property": "Write"
     },
     {
-      "accessType": "*",
+      "accessType": "READ",
       "principalType": "ROLE",
       "principalId": "admin",
+      "permission": "ALLOW",
+      "property": "find"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
       "permission": "ALLOW"
     }
   ],

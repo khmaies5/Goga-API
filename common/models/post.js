@@ -136,7 +136,7 @@ module.exports = function(Post) {
   Post.senNotif = function(id, title, msg, cb) {
     var url = 'https://fcm.googleapis.com/fcm/send';
 
-    var serverKey = 'AAAAZqyMyrw:APA91bGSjh35Vub6_pD0XERvUmuCp4JhcPa8wINY4neFCUDfkvP64e2fLVV-cVyo_HRn6EcIDiA2xpAv2C_b8bSao3JytgWyyPp2fnR2qQcNf7BEGUxeG_eHlqq1F3v9A4SY5qudz9CN';
+    var serverKey = 'AAAAZqyMyrw:APA91bGSjh35Vub6_pD0XERvUmuCp4JhcPa8wINY4neFCUDfkvP64e2fLVV-c Vyo_HRn6EcIDiA2xpAv2C_b8bSao3JytgWyyPp2fnR2qQcNf7BEGUxeG_eHlqq1F3v9A4SY5qudz9CN';
 
     var token = '/topics/' + id;
     var notification = {
