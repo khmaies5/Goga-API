@@ -24,6 +24,7 @@
     "loopback-connector-mongodb": "^1.18.1",
     "nodemon": "^1.14.10",
     "serve-favicon": "^2.0.1",
+    "slugify": "^1.2.9",
     "strong-error-handler": "^2.0.0"
   },
   "devDependencies": {

@@ -28,22 +28,18 @@
     "dataSource": "mongoDB",
     "public": true
   },
-  "rating": {
-    "dataSource": "mongoDB",
-    "public": true
-  },
   "comment": {
     "dataSource": "mongoDB",
     "public": true
   },
   "AccessToken": {
     "dataSource": "mongoDB",
-     "public":false
+    "public": false
   },
   "ACL": {
     "dataSource": "mongoDB",
     "public": false
-    },
+  },
   "attachment": {
     "dataSource": "storage",
     "public": true

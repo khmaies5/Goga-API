@@ -17,67 +17,61 @@
     "username": {
       "type": "string",
       "required": true
+    },
+    "numberOfLikes": {
+      "type": "number",
+      "required": true,
+      "default":0
+    },
+    "numberOfDislikes": {
+      "type": "number",
+      "required": true,
+      "default":0
+    },
+    "likes": {
+      "type": [
+        "string"
+      ],
+      "required": false
+    },
+    "dislikes": {
+      "type": [
+        "string"
+      ],
+      "required": false
+    },
+    "createdDate": {
+      "type": "date",
+      "required": false
     }
   },
   "validations": [],
   "relations": {
-    "users": {
-      "type": "hasOne",
+    "author": {
+      "type": "belongsTo",
       "model": "user",
       "foreignKey": ""
     }
   },
   "acls": [
     {
-      
       "accessType": "*",
       "principalType": "ROLE",
       "principalId": "$everyone",
       "permission": "DENY"
     },
     {
-      "accessType": "EXECUTE",
+      "accessType": "READ",
       "principalType": "ROLE",
-      "principalId": "$authenticated",
-      "permission": "ALLOW",
-      "property": "create"
+      "principalId": "$everyone",
+      "permission": "ALLOW"
     },
     {
-      "accessType": "EXECUTE",
+      "accessType": "WRITE",
       "principalType": "ROLE",
       "principalId": "$authenticated",
-      "permission": "ALLOW",
-      "property": "Read"
-    },
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "$owner",
-      "permission": "ALLOW",
-      "property": "Write"
-    }, {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "$authenticated",
-      "permission": "ALLOW",
-      "property": "find"
-    }, {
-      "principalType": "ROLE",
-      "principalId": "$authenticated",
-      "permission": "ALLOW",
-      "property": "findById"
-    }, {
-      "principalType": "ROLE",
-      "principalId": "$owner",
-      "permission": "ALLOW",
-      "property": "updateAttributes"
-    },
-  {
-    "accessType": "*",
-    "principalType": "ROLE",
-    "principalId": "admin",
-    "permission": "ALLOW"
-  }
+      "permission": "ALLOW"
+    }
   ],
   "methods": {}
 }

@@ -23,25 +23,9 @@
       "type": "hasMany",
       "model": "AccessToken",
       "foreignKey": "userId"
-    },
-    "comments": {
-      "type": "hasMany",
-      "model": "comment",
-      "foreignKey": ""
-    },
-    "posts": {
-      "type": "hasMany",
-      "model": "post",
-      "foreignKey": ""
-    },
-    "ratings": {
-      "type": "hasMany",
-      "model": "rating",
-      "foreignKey": ""
     }
   },
   "acls": [
-    
     {
       "accessType": "EXECUTE",
       "principalType": "ROLE",

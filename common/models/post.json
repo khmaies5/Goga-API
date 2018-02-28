@@ -24,27 +24,46 @@
       "required": true,
       "default": "profile.png"
     },
-    "rating": {
-      "type": "array",
+    "tags": {
+      "type": ["string"],
       "required": false
+    },
+    "slug": {
+      "type": "string",
+      "required": false
+    },
+    "numberOfUpVotes": {
+      "type": "number",
+      "required": true,
+      "default":0
+    },
+    "numberOfDownVotes": {
+      "type": "number",
+      "required": true,
+      "default":0
+    },
+    "upvotes": {
+      "type": [
+        "string"
+      ]
+    },
+    "downvotes": {
+      "type": [
+        "string"
+      ]
     }
   },
   "validations": [],
   "relations": {
-    "comment": {
+    "op": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": ""
+    },
+    "comments": {
       "type": "hasMany",
       "model": "comment",
       "foreignKey": ""
-    },
-    "ratings": {
-      "type": "hasMany",
-      "model": "rating",
-      "foreignKey": ""
-    },
-    "user": {
-      "type": "belongsTo",
-      "model": "user",
-      "foreignKey": "userId"
     }
   },
   "acls": [
@@ -55,41 +74,50 @@
       "permission": "DENY"
     },
     {
-      "accessType": "EXECUTE",
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "WRITE",
       "principalType": "ROLE",
       "principalId": "$authenticated",
-      "permission": "ALLOW",
-      "property": "create"
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": "upvote"
     },
     {
       "accessType": "EXECUTE",
       "principalType": "ROLE",
       "principalId": "$authenticated",
       "permission": "ALLOW",
-      "property": "Read"
+      "property": "upvote"
     },
     {
       "accessType": "EXECUTE",
       "principalType": "ROLE",
-      "principalId": "$owner",
-      "permission": "ALLOW",
-      "property": "Write"
-    }, {
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": "downvote"
+    },
+    {
       "accessType": "EXECUTE",
       "principalType": "ROLE",
       "principalId": "$authenticated",
       "permission": "ALLOW",
-      "property": "find"
-    }, {
-      "principalType": "ROLE",
-      "principalId": "$authenticated",
-      "permission": "ALLOW",
-      "property": "findById"
-    }, {
-      "principalType": "ROLE",
-      "principalId": "$owner",
-      "permission": "ALLOW",
-      "property": "updateAttributes"
+      "property": "downvote"
     }
   ],
   "methods": {}

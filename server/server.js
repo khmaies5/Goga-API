@@ -5,6 +5,8 @@ var loopback = require('loopback');
 var boot = require('loopback-boot');
 var app = module.exports = loopback();
 app.use(express.static(path.resolve('./public')));
+//app.use(loopback.context());
+app.use(loopback.token());
 
 app.start = function() {
   // start the web server
