@@ -21,12 +21,12 @@
     "numberOfLikes": {
       "type": "number",
       "required": true,
-      "default":0
+      "default": 0
     },
     "numberOfDislikes": {
       "type": "number",
       "required": true,
-      "default":0
+      "default": 0
     },
     "likes": {
       "type": [
@@ -47,7 +47,7 @@
   },
   "validations": [],
   "relations": {
-    "author": {
+    "user": {
       "type": "belongsTo",
       "model": "user",
       "foreignKey": ""

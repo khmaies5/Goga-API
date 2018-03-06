@@ -23,6 +23,16 @@
       "type": "hasMany",
       "model": "AccessToken",
       "foreignKey": "userId"
+    },
+    "comments": {
+      "type": "hasMany",
+      "model": "comment",
+      "foreignKey": ""
+    },
+    "posts": {
+      "type": "hasMany",
+      "model": "post",
+      "foreignKey": ""
     }
   },
   "acls": [

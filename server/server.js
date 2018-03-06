@@ -8,6 +8,7 @@ app.use(express.static(path.resolve('./public')));
 //app.use(loopback.context());
 app.use(loopback.token());
 
+
 app.start = function() {
   // start the web server
   return app.listen(function() {

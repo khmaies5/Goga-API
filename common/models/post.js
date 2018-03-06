@@ -152,8 +152,6 @@ module.exports = function(Post) {
   Post.beforeRemote('upvote', function(ctx, user, next) {
     Post.findById(ctx.req.params.id, function(err, record) {
       // do not let the user upvote their own record
-      console.log(typeof ctx.req.accessToken.userId);
-      console.log("index of ",typeof record.upvotes);
       if (record.userId === ctx.req.accessToken.userId) {
         var err = new Error('User cannot upvote their own post.');
         err.status = 403;
@@ -175,11 +173,21 @@ module.exports = function(Post) {
     //var ctx = loopback.getCurrentContext();
     Post.findById(id, function(err, record){
       // get the calling user who 'upvoted' it from the context
+      if (record.downvotes.indexOf(options.accessToken.userId) != -1){
+
       record.upvotes.push(options.accessToken.userId);
-      record.updateAttributes({numOfUpVotes: record.upvotes.length, upvotes: record.upvotes}, function(err, instance) {
+      record.updateAttributes({numberOfUpVotes: record.upvotes.length, upvotes: record.upvotes}, function(err, instance) {
         if (err) cb(err);
         if (!err) cb(null, instance);
       })
+    }else{
+      record.upvotes.push(options.accessToken.userId);
+      record.downvote.pop(options.accessToken.userId);
+      record.updateAttributes({numberOfUpVotes: record.upvotes.length, upvotes: record.upvotes,numberOfDownVotes: record.downvotes.length, downvote: record.downvotes}, function(err, instance) {
+        if (err) cb(err);
+        if (!err) cb(null, instance);
+      })
+    }
     })
   };
   // UPVOTE
@@ -202,7 +210,7 @@ module.exports = function(Post) {
   Post.beforeRemote('downvote', function(ctx, user, next) {
     Post.findById(ctx.req.params.id, function(err, record){
       // do not let the user downvote their own record
-      if (record.authorId === ctx.req.accessToken.userId) {
+      if (record.userId === ctx.req.accessToken.userId) {
         var err = new Error("User cannot downvote their own post.");
         err.status = 403;
         next(err);
@@ -222,11 +230,20 @@ module.exports = function(Post) {
     // get the current context
     Post.findById(id, function(err, record){
       // get the calling user who 'downvoted' it from the context
+      if (record.upvotes.indexOf(options.accessToken.userId) != -1){
       record.downvotes.push(options.accessToken.userId);
-      record.updateAttributes({numOfDownVotes: record.downvotes.length, downvote: record.downvotes}, function(err, instance) {
+      record.updateAttributes({numberOfDownVotes: record.downvotes.length, downvote: record.downvotes}, function(err, instance) {
         if (err) cb(err);
         if (!err) cb(null, instance);
       })
+    }else{
+      record.downvotes.push(options.accessToken.userId);
+      record.upvotes.pop(options.accessToken.userId);
+      record.updateAttributes({numberOfDownVotes: record.downvotes.length, downvote: record.downvotes,numberOfUpVotes: record.upvotes.length, upvotes: record.upvotes}, function(err, instance) {
+        if (err) cb(err);
+        if (!err) cb(null, instance);
+      })
+    }
     })
   };
   // DOWNVOTE
@@ -244,6 +261,8 @@ module.exports = function(Post) {
       if (ctx.instance.datepublication === undefined) {
         ctx.instance.datepublication = new Date();
       }
+
+      if(ctx.instance.userId === undefined) ctx.instance.userId = ctx.options.userId;
       // Category is still not implemented in the client
       if(ctx.instance.category === undefined) ctx.instance.category = "TODO";
       // Ensure the lines, dislikes and tags are an empty array

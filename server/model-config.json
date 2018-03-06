@@ -55,5 +55,9 @@
   "Role": {
     "dataSource": "mongoDB",
     "public": false
+  },
+  "accessToken": {
+    "dataSource": "mongoDB",
+    "public": false
   }
 }

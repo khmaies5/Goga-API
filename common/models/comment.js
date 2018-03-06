@@ -2,8 +2,7 @@
 
 module.exports = function(Comment) {
 
-    Comment.disableRemoteMethod('deleteById', true);
-
+    Comment.disableRemoteMethodByName('deleteById');
 
 
      // Register a 'like' remote method: /blogs/some-id/like
@@ -17,6 +16,13 @@ module.exports = function(Comment) {
       description: 'Marks a comment as liked.'
     }
   );
+
+  Comment.beforeRemote('find', async function(ctx,next){
+
+     let c = await  Comment.find({include: 'user'}) 
+
+    console.log(c);
+  })
 
   // Remote hook called before running function
   Comment.beforeRemote('like', function(ctx, user, next) {
@@ -41,11 +47,20 @@ module.exports = function(Comment) {
   Comment.like = function(id, options, cb) {
     Comment.findById(id, function(err, record){
       // get the calling user who 'liked' it from the context
+      if (record.dislikes.indexOf(options.accessToken.userId) != -1){
       record.likes.push(options.accessToken.userId);
-      record.updateAttributes({numOfLikes: record.likes.length, likes: record.likes}, function(err, instance) {
+      record.updateAttributes({numberOfLikes: record.likes.length, likes: record.likes}, function(err, instance) {
         if (err) cb(err);
         if (!err) cb(null, instance);
       })
+    }else{
+      record.likes.push(options.accessToken.userId);
+      record.dislike.pop(options.accessToken.userId);
+      record.updateAttributes({numberOfLikes: record.likes.length, likes: record.likes,numberOfDislikes: record.dislikes.length, dislikes: record.dislikes}, function(err, instance) {
+        if (err) cb(err);
+        if (!err) cb(null, instance);
+      })
+    }
     })
   };
   // LIKE
@@ -87,11 +102,20 @@ module.exports = function(Comment) {
    
     Comment.findById(id, function(err, record){
       // get the calling user who 'disliked' it from the context
+      if (record.likes.indexOf(options.accessToken.userId) != -1){
       record.dislikes.push(options.accessToken.userId);
-      record.updateAttributes({numOfDislikes: record.dislikes.length, likes: record.dislikes}, function(err, instance) {
+      record.updateAttributes({numberOfDislikes: record.dislikes.length, dislikes: record.dislikes}, function(err, instance) {
         if (err) cb(err);
         if (!err) cb(null, instance);
       })
+    }else{
+      record.dislikes.push(options.accessToken.userId);
+      record.likes.pop(options.accessToken.userId);
+      record.updateAttributes({numberOfDislikes: record.dislikes.length, dislikes: record.dislikes,numberOfLikes: record.likes.length, likes: record.likes}, function(err, instance) {
+        if (err) cb(err);
+        if (!err) cb(null, instance);
+      })
+    }
     })
   };
   // DISLIKE
@@ -101,10 +125,12 @@ module.exports = function(Comment) {
     // If there is a record in the context
     if (ctx.instance) {
       // Ensure a valid postedDate
-      if (ctx.instance.postedDate === undefined) {
-        ctx.instance.postedDate = new Date();
+      if (ctx.instance.createdDate === undefined) {
+        ctx.instance.createdDate = new Date();
       }
+      console.log("user id ",ctx.options.userId)
       // Ensure the lines and dislikes are an empty array
+      if(ctx.instance.userId === undefined) ctx.instance.userId = ctx.options.userId;
       if (ctx.instance.likes === undefined) ctx.instance.likes = [];
       if (ctx.instance.dislikes === undefined) ctx.instance.dislikes = [];
     }
