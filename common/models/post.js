@@ -136,6 +136,20 @@ module.exports = function(Post) {
   });
 */
 
+
+
+Post.afterRemote(Post.prototype.__findById__comments,async function(ctx,next){
+
+  //let c = await Post.findById(ctx.req.params.id,{include: 'user'})
+  //console.log(c)
+  console.log(ctx.result)
+})
+Post.prototype.fn = function(id,cb){
+  console.log(id)
+
+}
+
+
   // Register an 'upvote' remote method: /posts/some-id/upvote
   Post.remoteMethod(
     'upvote',
@@ -247,6 +261,9 @@ module.exports = function(Post) {
     })
   };
   // DOWNVOTE
+
+
+
 
   // Call an operation hook that runs before each record is saved
   Post.observe('before save', function filterProperties(ctx, next) {

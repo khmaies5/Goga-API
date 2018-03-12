@@ -5,7 +5,7 @@ module.exports = function(Comment) {
     Comment.disableRemoteMethodByName('deleteById');
 
 
-     // Register a 'like' remote method: /blogs/some-id/like
+     // Register a 'like' remote method: /comments/some-id/like
   Comment.remoteMethod(
     'like',
     {
@@ -17,11 +17,41 @@ module.exports = function(Comment) {
     }
   );
 
-  Comment.beforeRemote('find', async function(ctx,next){
+      // Register a 'find_post_comments' remote method: /comments/some-id/like
+      Comment.remoteMethod(
+        'find_post_comments',
+        {
+          http: {path: '/:postId/find_post_comments', verb: 'get'},
+          accepts: [{arg: 'postId', type: 'string', required: true, http: { source: 'path' }},
+          {arg: 'options', type: 'object', http: 'optionsFromRequest'}],
+          returns: {root: true, type: 'object'},
+          description: 'get all the comments of the postId.'
+        }
+      );
+
+        // the actual function called by the route to do the work
+  Comment.find_post_comments = function(postId, options, cb) {
+    Comment.find({where: {postId: postId},include: 'user'}, function(err, record){
+      
+      console.log(record)
+      if(err) cb(err)
+      if(!err) cb(null,record)
+     
+    })
+  };
+
+  Comment.afterRemote('find', async function(ctx,next){
 
      let c = await  Comment.find({include: 'user'}) 
+     ctx.result = c;
+    console.log(ctx.result);
+  })
 
-    console.log(c);
+  Comment.afterRemote('findById',async function(ctx,next){
+
+      let c = await Comment.findById(ctx.req.params.id,{include: 'user'})
+      console.log(c)
+      console.log(ctx.req.id)
   })
 
   // Remote hook called before running function
