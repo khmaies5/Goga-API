@@ -12,11 +12,11 @@
     },
     "profilepicture": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "username": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "numberOfLikes": {
       "type": "number",
