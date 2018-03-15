@@ -165,13 +165,14 @@ Post.prototype.fn = function(id,cb){
   // Remote hook called before running function
   Post.beforeRemote('upvote', function(ctx, user, next) {
     Post.findById(ctx.req.params.id, function(err, record) {
+      console.log(ctx.req.accessToken.userId+" "+record.upvotes)
       // do not let the user upvote their own record
       if (record.userId === ctx.req.accessToken.userId) {
         var err = new Error('User cannot upvote their own post.');
         err.status = 403;
         next(err);
-      // do no let the user upvote a comment more than once
-      } else if (record.upvotes.indexOf(ctx.req.accessToken.userId)) {
+      // do no let the user upvote a comment more than one
+      } else if (record.upvotes.length > 0 && record.upvotes.indexOf(ctx.req.accessToken.userId)) {
         var err = new Error("User has already upvoted the Post.");
         err.status = 403;
         next(err);
@@ -186,8 +187,9 @@ Post.prototype.fn = function(id,cb){
     // get the current context
     //var ctx = loopback.getCurrentContext();
     Post.findById(id, function(err, record){
+      console.log(record.downvote)
       // get the calling user who 'upvoted' it from the context
-      if (record.downvotes.indexOf(options.accessToken.userId) != -1){
+      if (record.downvote == undefined || record.downvotes.indexOf(options.accessToken.userId) != -1){
 
       record.upvotes.push(options.accessToken.userId);
       record.updateAttributes({numberOfUpVotes: record.upvotes.length, upvotes: record.upvotes}, function(err, instance) {
@@ -229,7 +231,7 @@ Post.prototype.fn = function(id,cb){
         err.status = 403;
         next(err);
       // do no let the user downvote a comment more than once
-      } else if (record.downvotes.indexOf(ctx.req.accessToken.userId) != -1) {
+      } else if (record.downvotes.length > 0 && record.downvotes.indexOf(ctx.req.accessToken.userId) != -1) {
         var err = new Error("User has already downvoted the Post.");
         err.status = 403;
         next(err);
@@ -244,7 +246,7 @@ Post.prototype.fn = function(id,cb){
     // get the current context
     Post.findById(id, function(err, record){
       // get the calling user who 'downvoted' it from the context
-      if (record.upvotes.indexOf(options.accessToken.userId) != -1){
+      if (record.upvotes == undefined || record.upvotes.indexOf(options.accessToken.userId) != -1){
       record.downvotes.push(options.accessToken.userId);
       record.updateAttributes({numberOfDownVotes: record.downvotes.length, downvote: record.downvotes}, function(err, instance) {
         if (err) cb(err);

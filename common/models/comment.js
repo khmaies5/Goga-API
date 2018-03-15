@@ -63,7 +63,7 @@ module.exports = function(Comment) {
         err.status = 403;
         next(err);
       // do no let the user like a comment more than once
-      } else if (record.likes.indexOf(ctx.req.accessToken.userId) != -1) {
+      } else if (record.likes.length > 0 && record.likes.indexOf(ctx.req.accessToken.userId) != -1) {
         var err = new Error("User has already liked the comment.");
         err.status = 403;
         next(err);
@@ -77,7 +77,7 @@ module.exports = function(Comment) {
   Comment.like = function(id, options, cb) {
     Comment.findById(id, function(err, record){
       // get the calling user who 'liked' it from the context
-      if (record.dislikes.indexOf(options.accessToken.userId) != -1){
+      if (record.dislikes == undefined || record.dislikes.indexOf(options.accessToken.userId) != -1){
       record.likes.push(options.accessToken.userId);
       record.updateAttributes({numberOfLikes: record.likes.length, likes: record.likes}, function(err, instance) {
         if (err) cb(err);
@@ -116,7 +116,7 @@ module.exports = function(Comment) {
         err.status = 403;
         next(err);
       // do no let the user dislike a comment more than once
-      } else if (record.dislikes.indexOf(ctx.req.accessToken.userId) != -1) {
+      } else if (record.dislikes.length > 0 && record.dislikes.indexOf(ctx.req.accessToken.userId) != -1) {
         var err = new Error("User has already disliked the comment.");
         err.status = 403;
         next(err);
@@ -132,7 +132,7 @@ module.exports = function(Comment) {
    
     Comment.findById(id, function(err, record){
       // get the calling user who 'disliked' it from the context
-      if (record.likes.indexOf(options.accessToken.userId) != -1){
+      if (record.likes == undefined || record.likes.indexOf(options.accessToken.userId) != -1){
       record.dislikes.push(options.accessToken.userId);
       record.updateAttributes({numberOfDislikes: record.dislikes.length, dislikes: record.dislikes}, function(err, instance) {
         if (err) cb(err);
