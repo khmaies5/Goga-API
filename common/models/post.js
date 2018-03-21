@@ -187,9 +187,9 @@ Post.prototype.fn = function(id,cb){
     // get the current context
     //var ctx = loopback.getCurrentContext();
     Post.findById(id, function(err, record){
-      console.log(record.downvote)
+      console.log(record.downvotes)
       // get the calling user who 'upvoted' it from the context
-      if (record.downvote == undefined || record.downvotes.indexOf(options.accessToken.userId) != -1){
+      if (record.downvotes == undefined || record.downvotes.indexOf(options.accessToken.userId) != -1){
 
       record.upvotes.push(options.accessToken.userId);
       record.updateAttributes({numberOfUpVotes: record.upvotes.length, upvotes: record.upvotes}, function(err, instance) {
@@ -199,7 +199,7 @@ Post.prototype.fn = function(id,cb){
     }else{
       record.upvotes.push(options.accessToken.userId);
       record.downvote.pop(options.accessToken.userId);
-      record.updateAttributes({numberOfUpVotes: record.upvotes.length, upvotes: record.upvotes,numberOfDownVotes: record.downvotes.length, downvote: record.downvotes}, function(err, instance) {
+      record.updateAttributes({numberOfUpVotes: record.upvotes.length, upvotes: record.upvotes,numberOfDownVotes: record.downvotes.length, downvotes: record.downvotes}, function(err, instance) {
         if (err) cb(err);
         if (!err) cb(null, instance);
       })
@@ -248,14 +248,14 @@ Post.prototype.fn = function(id,cb){
       // get the calling user who 'downvoted' it from the context
       if (record.upvotes == undefined || record.upvotes.indexOf(options.accessToken.userId) != -1){
       record.downvotes.push(options.accessToken.userId);
-      record.updateAttributes({numberOfDownVotes: record.downvotes.length, downvote: record.downvotes}, function(err, instance) {
+      record.updateAttributes({numberOfDownVotes: record.downvotes.length, downvotes: record.downvotes}, function(err, instance) {
         if (err) cb(err);
         if (!err) cb(null, instance);
       })
     }else{
       record.downvotes.push(options.accessToken.userId);
       record.upvotes.pop(options.accessToken.userId);
-      record.updateAttributes({numberOfDownVotes: record.downvotes.length, downvote: record.downvotes,numberOfUpVotes: record.upvotes.length, upvotes: record.upvotes}, function(err, instance) {
+      record.updateAttributes({numberOfDownVotes: record.downvotes.length, downvotes: record.downvotes,numberOfUpVotes: record.upvotes.length, upvotes: record.upvotes}, function(err, instance) {
         if (err) cb(err);
         if (!err) cb(null, instance);
       })
