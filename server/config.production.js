@@ -8,6 +8,6 @@
 
 
 module.exports = {
-    host: process.env.HOST,
-    port: process.env.CUSTOM_PORT
+    host: process.env.APPLICATION_HOST,
+    port: process.env.APPLICATION_PORT
 };
