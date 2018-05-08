@@ -2,17 +2,38 @@
 
 var loopback = require('loopback');
 var app = module.exports = loopback();
+var path = require('path');
+
 
 module.exports = function (User) {
   // send verification email after registration
   User.afterRemote('create', function (context, user, next) {
-    var options = {
+    var verifyoptions = {
       type: 'email',
       to: user.email,
       from: '***REMOVED***',
       subject: 'Thanks for registering.',
+      text: 'testing the text',
+      template: '<html></html>',
+      verifyHref: '<p> khmaies '+User.verificationToken+'</p>',
       html: '<p> khmaies '+User.verificationToken+'</p>',
       user: user,
+    };
+
+    var options = {
+      type: 'email',
+
+   
+      to: user.email,
+      from: '***REMOVED***',
+      subject: 'My Subject',
+
+      template: path.resolve(__dirname, '../../client/templates/verify.ejs'),
+      
+      user: user,
+
+      verifyHref: "  "
+     
     };
 
    /* User.app.models.Email.send({
