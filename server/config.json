@@ -1,6 +1,6 @@
 {
   "restApiRoot": "/api",
-  "host": "https://goga-api.herokuapp.com",
+  "host": "localhost",
   "port": 3000,
   "remoting": {
     "context": false,
