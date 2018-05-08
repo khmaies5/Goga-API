@@ -9,18 +9,65 @@ module.exports = function (User) {
     var options = {
       type: 'email',
       to: user.email,
-      from: 'khmaieshassen@gmail.com',
+      from: '***REMOVED***',
       subject: 'Thanks for registering.',
-      html: user.verificationToken,
+      html: '<p> khmaies '+User.verificationToken+'</p>',
       user: user,
     };
 
-    user.verify(options, function (err, response) {
-      if (err) {
-        User.deleteById(user.id);
-        return next(err);
+   /* User.app.models.Email.send({
+      type: 'email',
+      to: user.email,
+      from: '***REMOVED***',
+      subject: 'Thanks for registering.',
+      html: '<p> khmaies '+User.verificationToken+'</p>',
+      user: user,
+    }, function (err, email) {
+      if(err) {
+        console.log("options "+options);
+        console.log("mail err "+err);
+
+        next(err);
+      } else {
+        console.log("options "+options.html);
+
+        console.log("mail sent ");
       }
+    });*/
+
+
+    user.verify(options, function(err, response, next) {
+      if (err) return next(err);
+        
+      console.log('> verification email sent:', response);
+
     });
+
+
+   /* user.verify(options, function (err, response) {
+      if (err) {
+       console.log("verify err "+err);
+        // User.deleteById(user.id);
+        return next(err);
+      } else {
+        User.app.models.Email.send({
+          type: 'email',
+          to: user.email,
+          from: '***REMOVED***',
+          subject: 'Thanks for registering.',
+          html: '<p> khmaies '+user.verificationToken+'</p>',
+          user: user,
+        }, function (err, email) {
+          if(err) {
+            console.log("mail err "+err);
+
+            next(err);
+          } else {
+            console.log("mail sent ");
+          }
+        });
+      }
+    });*/
     next();
   });
 
