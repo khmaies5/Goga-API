@@ -33,7 +33,4 @@ boot(app, __dirname, function(err) {
   if (require.main === module)
     app.start();
 });
-module.exports = {
-  host: process.env.CUSTOM_HOST,
-  port: process.env.CUSTOM_PORT
-};
+
