@@ -5,7 +5,16 @@ var app = module.exports = loopback();
 var path = require('path');
 
 
+
 module.exports = function (User) {
+
+
+ 
+
+
+   
+
+
   // send verification email after registration
   User.afterRemote('create', function (context, user, next) {
     var verifyoptions = {
@@ -26,7 +35,7 @@ module.exports = function (User) {
    
       to: user.email,
       from: '***REMOVED***',
-      subject: 'My Subject',
+      subject: 'Thanks for joining Goga!',
 
       template: path.resolve(__dirname, '../../client/templates/verify.ejs'),
       
@@ -220,4 +229,9 @@ module.exports = function (User) {
       console.log('> sending password reset email to:', info.email);
     });
   });
+
+ 
+
+
+
 };

@@ -14,7 +14,7 @@ app.start = function() {
   return app.listen(function() {
     app.emit('started');
     var baseUrl = app.get('url').replace(/\/$/, '');
-    console.log('host '+app.set('host','https://goga-api.herokuapp.com'));
+    app.set('host','goga-api.herokuapp.com');
     console.log('host '+app.get('host'));
 
     console.log('Web server listening at: %s', baseUrl);

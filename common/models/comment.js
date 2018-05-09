@@ -58,7 +58,7 @@ module.exports = function(Comment) {
   Comment.beforeRemote('like', function(ctx, user, next) {
     Comment.findById(ctx.req.params.id, function(err, record){
       // do not let the user like their own record
-      if (record.authorId === ctx.req.accessToken.userId) {
+      if (record.userId === ctx.req.accessToken.userId) {
         var err = new Error("User cannot like their own comment.");
         err.status = 403;
         next(err);
@@ -111,7 +111,7 @@ module.exports = function(Comment) {
   Comment.beforeRemote('dislike', function(ctx, user, next) {
     Comment.findById(ctx.req.params.id, function(err, record){
       // do not let the user dislike their own record
-      if (record.authorId === ctx.req.accessToken.userId) {
+      if (record.userId === ctx.req.accessToken.userId) {
         var err = new Error("User cannot dislike their own comment.");
         err.status = 403;
         next(err);
