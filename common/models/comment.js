@@ -77,7 +77,9 @@ module.exports = function(Comment) {
   Comment.like = function(id, options, cb) {
     Comment.findById(id, function(err, record){
       // get the calling user who 'liked' it from the context
-      if (record.dislikes == undefined || record.dislikes.indexOf(options.accessToken.userId) != -1){
+      console.log("dislike array "+record.dislikes)
+      console.log("index of dislikes "+record.dislikes.indexOf(options.accessToken.userId))
+      if (record.dislikes == undefined || record.dislikes.indexOf(options.accessToken.userId) == -1){
       record.likes.push(options.accessToken.userId);
       record.updateAttributes({numberOfLikes: record.likes.length, likes: record.likes}, function(err, instance) {
         if (err) cb(err);
@@ -132,7 +134,7 @@ module.exports = function(Comment) {
    
     Comment.findById(id, function(err, record){
       // get the calling user who 'disliked' it from the context
-      if (record.likes == undefined || record.likes.indexOf(options.accessToken.userId) != -1){
+      if (record.likes == undefined || record.likes.indexOf(options.accessToken.userId) == -1){
       record.dislikes.push(options.accessToken.userId);
       record.updateAttributes({numberOfDislikes: record.dislikes.length, dislikes: record.dislikes}, function(err, instance) {
         if (err) cb(err);
