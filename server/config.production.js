@@ -8,6 +8,6 @@
 
 
 module.exports = {
-    host: "https://goga-api.herokuapp.com",
+    host: "goga-api.herokuapp.com",
     port: process.env.PORT
 };
