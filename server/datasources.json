@@ -2,9 +2,9 @@
   "mongoDB": {
     "host": "ds042687.mlab.com",
     "port": 42687,
-    "url": "***REMOVED***",
+    "url": "",
     "database": "goga",
-    "password": "***REMOVED***",
+    "password": "",
     "name": "mongoDB",
     "user": "gogaApp",
     "connector": "mongodb"
@@ -21,8 +21,8 @@
           "rejectUnauthorized": false
         },
         "auth": {
-          "user": "***REMOVED***",
-          "pass": "***REMOVED***"
+          "user": "",
+          "pass": ""
         }
       }
     ],

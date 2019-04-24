@@ -20,7 +20,7 @@ module.exports = function (User) {
     var verifyoptions = {
       type: 'email',
       to: user.email,
-      from: '***REMOVED***',
+      from: 'hssen.khmaies@esprit.tn',
       subject: 'Thanks for registering.',
       text: 'testing the text',
       template: '<html></html>',
@@ -34,7 +34,7 @@ module.exports = function (User) {
 
    
       to: user.email,
-      from: '***REMOVED***',
+      from: 'hssen.khmaies@esprit.tn',
       subject: 'Thanks for joining Goga!',
 
       template: path.resolve(__dirname, '../../client/templates/verify.ejs'),
@@ -48,7 +48,7 @@ module.exports = function (User) {
    /* User.app.models.Email.send({
       type: 'email',
       to: user.email,
-      from: '***REMOVED***',
+      from: 'hssen.khmaies@esprit.tn',
       subject: 'Thanks for registering.',
       html: '<p> khmaies '+User.verificationToken+'</p>',
       user: user,
@@ -83,7 +83,7 @@ module.exports = function (User) {
         User.app.models.Email.send({
           type: 'email',
           to: user.email,
-          from: '***REMOVED***',
+          from: 'hssen.khmaies@esprit.tn',
           subject: 'Thanks for registering.',
           html: '<p> khmaies '+user.verificationToken+'</p>',
           user: user,
